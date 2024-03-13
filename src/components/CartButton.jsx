@@ -1,0 +1,90 @@
+import { FaShoppingCart, FaUserMinus, FaUserPlus } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { useCartContext } from '../CONTEXT API/Cart_context';
+import { useUserContext } from '../CONTEXT API/UserContext';
+const CartButton = () => {
+  const { total_items } = useCartContext();
+  const { loginWithRedirect, myUser, logout } = useUserContext();
+  return (
+    <Wrapper className="cart-btn-wrapper">
+      <Link to="/cart" className="cart-btn">
+        Cart
+        <span className="cart-container">
+          <FaShoppingCart />
+          <span className="cart-value">{total_items}</span>
+        </span>
+      </Link>
+
+      {!myUser ? (
+        <button type="button" className="auth-btn" onClick={loginWithRedirect}>
+          Login <FaUserPlus />
+        </button>
+      ) : (
+        <button
+          type="button"
+          className="auth-btn"
+          onClick={() => logout({ returnTo: window.location.origin })}
+        >
+          Logout <FaUserMinus />
+        </button>
+      )}
+    </Wrapper>
+  );
+};
+export default CartButton;
+
+const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 225px;
+
+  .cart-btn {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    color: var(--clr-grey-1);
+    letter-spacing: var(--spacing);
+    color: var(--clr-grey-1);
+  }
+  .cart-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    svg {
+      height: 1.6rem;
+      margin-left: 5px;
+    }
+  }
+
+  .cart-value {
+    position: absolute;
+    top: -10px;
+    right: -16px;
+    background: var(--clr-primary-5);
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    color: var(--clr-white);
+    padding: 12px;
+  }
+
+  .auth-btn {
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border-color: transparent;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--clr-grey-1);
+    letter-spacing: var(--spacing);
+    svg {
+      margin-left: 5px;
+    }
+  }
+`;

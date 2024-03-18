@@ -11,4 +11,5 @@ export { default as ProductList } from './ProductList';
 export { default as Sort } from './Sort';
 export { default as Filters } from './Filters';
 export { default as CartContent } from './CartContent';
+export { default as StripeCheckout } from './StripeCheckout';
 // export { default as CartButton } from './CartButton';

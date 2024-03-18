@@ -7,7 +7,7 @@ import {
   useElements,
 } from '@stripe/react-stripe-js';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useCartContext } from '../CONTEXT API/Cart_context';
 import { useUserContext } from '../CONTEXT API/UserContext';
 import { useState, useEffect } from 'react';
@@ -18,7 +18,7 @@ const promise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 const CheckoutForm = () => {
   const { cart, total_amount, shipping_fee, clearCart } = useCartContext();
   const { myUser } = useUserContext();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   // STRIPE STUFF
   const [succeeded, setSucceeded] = useState(false);
@@ -78,6 +78,10 @@ const CheckoutForm = () => {
       setError(null);
       setProcessing(false);
       setSucceeded(true);
+      setTimeout(() => {
+        clearCart();
+        navigate('/');
+      }, 10000);
     }
   };
   const handleChange = (ev) => {

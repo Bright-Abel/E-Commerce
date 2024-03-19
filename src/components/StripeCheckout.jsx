@@ -13,7 +13,7 @@ import { useUserContext } from '../CONTEXT API/UserContext';
 import { useState, useEffect } from 'react';
 import { formatPrice } from '../axios/custom';
 
-const promise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
+const promise = loadStripe(String(import.meta.env.VITE_KEY_STRIPE_PUBLIC_KEY));
 
 const CheckoutForm = () => {
   const { cart, total_amount, shipping_fee, clearCart } = useCartContext();
@@ -100,7 +100,7 @@ const CheckoutForm = () => {
       ) : (
         <article>
           <h4>Hello, {myUser && myUser.name}</h4>
-          <p>Yoyr total is {formatPrice(shipping_fee + total_amount)}</p>
+          <p>Your total is {formatPrice(shipping_fee + total_amount)}</p>
           <p>Test Card Number : 4242 4242 4242 4242</p>
         </article>
       )}
